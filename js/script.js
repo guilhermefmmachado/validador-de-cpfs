@@ -9,7 +9,7 @@ form.btnValidar.addEventListener("click", () => {
 
   xhr.onreadystatechange = () => {
     if (xhr.readyState == 4 && xhr.status == 200) {
-      resultadoValidacao.innerText = JSON.parse(xhr.responseText);
+      resultadoValidacao.innerText = String(JSON.parse(xhr.responseText));
     }
   }
   
