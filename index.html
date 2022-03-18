@@ -11,13 +11,13 @@
 <body>
   <main>
     <h1>Validador de CPFs</h1>
-    <form>
-      <input type="text" name="entradacpf" id="entrada-cpf" autocomplete="off" maxlength="14" placeholder="123.456.789-00" autofocus required>
+    <div id="form"> <!--Se for usar AJAX, não use a tag "form", pois causa uma tragédia mental inimaginável.-->
+      <input type="text" autocomplete="off" maxlength="14" placeholder="123.456.789-00" id="entrada-cpf" autofocus required>
       <!--Nessas condições, devo testar se o CPF tem 11, 12 ou 14 caracteres-->
       <!--Na próxima vez que chegar, criar uma nova branch para mais edições no "script.js"-->
-      <input type="submit" id="btn-validar" value="Validar">
-    </form>
-    <p id="resultado-validacao"></p>
+      <button type="submit" id="btn-validar">Validar</button>
+    </div>
+    <p id="resultado-validacao">aaa</p>
   </main>
   <footer>
     <p>&copy; Guilherme F. M. Machado</p>
