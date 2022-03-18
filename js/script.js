@@ -3,4 +3,4 @@ const form = {
   btnValidar: document.querySelector("#btn-validar"),
 }
 
-form.btnValidar.addEventListener("click") = () => {alert("funcionou")};
+form.btnValidar.addEventListener("click", () => {alert("funcionou")})
