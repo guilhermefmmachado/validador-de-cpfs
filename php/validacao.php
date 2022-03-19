@@ -1,24 +1,20 @@
 <?php
   $entradaCpf = isset($_POST['entradacpf']) ? $_POST['entradacpf'] : "Oi, meu chapa!";
   
-  // 1. VALIDAÇÃO
-  /*
-    CPF hipotético: ABCDEFGHI-JK
-    J e K são os "Últimos dígitos do CPF"
-    O resultado da soma, 10A + 9B + 8C + 7D + 6E + 5F + 4G + 3H + 2I, é dividido por 11.
-  */
+  // 1. VALIDAÇÃO DA ENTRADA
   function validandoEntrada($entCpf)
   {
-    // 1º TIRA A PONTUAÇÃO
+    // 1º Tira as pontuações ".", "-"
     $cpfRetorno = 0;
     $cpfRetorno = preg_replace("/\.|-/", "", $entCpf);
-    // 2º ANALISA SE ALGUM NÚMERO ESTÁ FALTANDO
+    // 2º Analisa se algum número está faltando
     if (count(str_split($cpfRetorno)) != 11) {
       $cpfRetorno = "Entrada inválida, digite conforme o texto sugerido no campo.";
     }
     return $cpfRetorno;
   }
 
+  // 2. CALCULANDO OS ÚLTIMOS DOIS DÍGITOS DO CPF
   function calculaUltimosDigitosCpf($entCpf, $opcao)
   {
     // Declaração de variáveis e escolha de J ou K
@@ -54,14 +50,27 @@
     }
   }
 
-  $cpfResultado = validandoEntrada($entradaCpf);
+  // 3. VALIDANDO OS RESULTADOS
+  function validandoResultado($entCpf, $ultimosDigitosCpf)
+  {
+    $txtResultadoValidacao = "";
+    $arrayCpf = str_split($entCpf);
+    if ($arrayCpf[count($arrayCpf)-2] == $ultimosDigitosCpf[0] && $arrayCpf[count($arrayCpf)-1] == $ultimosDigitosCpf[1]) {
+      return $resultadoValidacao = "O número de CPF digitado, $entCpf, é válido!";
+    } else {
+      return $resultadoValidacao = "O número de CPF digitado, $entCpf, não é válido!";
+    }
+  }
+
+  // EXECUÇÃO DA APLICAÇÃO
+  $valCpf = validandoEntrada($entradaCpf);
   $arrayUltimosDigitosCpf = [];
   for ($i=0; $i <= 1; $i++) { 
     // Se $i for 0, então calcula-se J, senão, calcula-se K.
-    $arrayUltimosDigitosCpf[$i] = calculaUltimosDigitosCpf($cpfResultado, $i);
-
-    // FALTA COMPARAR COM OS DOIS ÚLTIMOS DÍGITOS REAIS
+    $arrayUltimosDigitosCpf[$i] = calculaUltimosDigitosCpf($valCpf, $i);
   }
 
-  echo json_encode($arrayUltimosDigitosCpf);
+  // 4. VALIDAÇÃO COM A ENTRADA E RETORNANDO O RESULTADO AO FRONT-END
+  $txtResultadoValidacao = [validandoResultado($valCpf, $arrayUltimosDigitosCpf)];
+  echo json_encode($txtResultadoValidacao);
 ?>
