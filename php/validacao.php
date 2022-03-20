@@ -1,5 +1,5 @@
 <?php
-  $entradaCpf = isset($_POST['entradacpf']) ? $_POST['entradacpf'] : "Oi, meu chapa!";
+  $entradaCpf = isset($_POST['entradacpf']) ? $_POST['entradacpf'] : "Erro no envio ao servidor.";
   
   // 1. VALIDAÇÃO DA ENTRADA
   function validandoEntrada($entCpf)
@@ -10,6 +10,8 @@
     // 2º Analisa se algum número está faltando
     if (count(str_split($cpfRetorno)) != 11) {
       $cpfRetorno = "Entrada inválida, digite conforme o texto sugerido no campo.";
+      echo json_encode([$cpfRetorno]);
+      exit(0);
     }
     return $cpfRetorno;
   }
@@ -19,9 +21,11 @@
   {
     // Declaração de variáveis e escolha de J ou K
     if ($opcao == 0) {
+      // Caso J
       $cteOperacaoDiferenca = 10;
       $limiteLoopMultiplicacao = 9;
     } elseif ($opcao == 1) {
+      // Caso K
       $cteOperacaoDiferenca = 11;
       $limiteLoopMultiplicacao = 10;
     }
@@ -66,7 +70,7 @@
   $valCpf = validandoEntrada($entradaCpf);
   $arrayUltimosDigitosCpf = [];
   for ($i=0; $i <= 1; $i++) { 
-    // Se $i for 0, então calcula-se J, senão, calcula-se K.
+    // Se $i for 0, então calcula-se J, se for 1, calcula-se K.
     $arrayUltimosDigitosCpf[$i] = calculaUltimosDigitosCpf($valCpf, $i);
   }
 
