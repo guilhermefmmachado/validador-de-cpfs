@@ -1,3 +1,44 @@
 * {
   box-sizing: border-box;
 }
+
+main {
+  max-width: 500px;
+  background-color: gainsboro;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+div#form {
+  width: 250px;
+  text-align: center;
+}
+
+div#form > p {
+  margin: 0px 0px 10px 0px;
+}
+
+input#entrada-cpf {
+  width: 200px;
+  text-align: center;
+  padding: 5px 12px;
+  border-radius: 5px;
+}
+
+button#btn-validar {
+  width: 100px;
+  padding: 5px 12px;
+  border-radius: 5px;
+}
+
+footer > p {
+  text-align: center;
+}
